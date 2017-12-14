@@ -1,8 +1,22 @@
-# nndefined-particles
+# NNdefined-particles
+*This is a `VueJS` projects with awesome reusable components*
 
-***
+## To get started:
+```
+npm install
+```
+```
+npm run dev
+```
 
-* This is a `VueJS` projects with awesome reusable components.
-**Now available: 
-* `input` (with validation: letters, numbers, number's length, email, required)
+## Available components
+
+### Input `(NnInput)`
+
+#### Validation:
+- letters
+- numbers
+- number's length
+- email
+- required
 
