@@ -1,14 +1,25 @@
 <template>
   <div id="app">
+    <nn-navbar/>
     <img src="./assets/logo.png">
     <router-view/>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  import NnNavbar from './components/layout/NnNavbar'
+
+  export default {
+    name: 'app',
+    data() {
+      return {
+
+      }
+    },
+    components: {
+      NnNavbar
+    }
+  }
 </script>
 
 <style>
@@ -18,6 +29,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

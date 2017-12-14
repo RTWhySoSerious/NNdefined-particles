@@ -1,19 +1,19 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <nn-input 
+    <!-- <nn-input 
       placeholder="Placeholder"
       label="Label"
       width="50%"
       @inputVal="userInput"
       name="name"
       :validParams="['Email']"
-    />
+    /> -->
   </div>
 </template>
 
 <script>
-  import NnInput from './shared/NN-input'
+  // import NnInput from './shared/NN-input'
 
   export default {
     name: 'HelloWorld',
@@ -23,12 +23,12 @@
       }
     },
     components: {
-      NnInput
+      // NnInput
     },
     methods: {
-      userInput(_parsed) {
-        console.log(_parsed)
-      }
+      // userInput(_parsed) {
+      //   console.log(_parsed)
+      // }
     }
   }
 </script>
