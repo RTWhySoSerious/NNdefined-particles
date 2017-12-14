@@ -1,5 +1,5 @@
 # NNdefined-particles
-*This is a `VueJS` projects with awesome reusable components*
+*This is a `VueJS` project with reusable components*
 
 ## To get started:
 ```
