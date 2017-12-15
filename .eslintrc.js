@@ -48,7 +48,8 @@ module.exports = {
     'no-unused-expressions': 0,
     'consistent-return': 0,
     'no-unreachable': 0,
-    'no-console': 0
+    'no-console': 0,
+    'linebreak-style': 0
   }
 }
 

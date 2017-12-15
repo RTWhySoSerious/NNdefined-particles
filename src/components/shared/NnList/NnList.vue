@@ -1,13 +1,10 @@
 <template>
-  <ul class="nn-list">
-    <nn-list-item 
-      v-if="items"
+  <ul class="nn-list" v-if="items">
+    <nn-list-item
       v-for="(item, key) in items"
       :key="key"
       :item="item"
-      @selectItem="selectedItem"
     />
-    <!-- :class="{'selected' : item === selected}" -->
   </ul>
 </template>
 
@@ -16,14 +13,6 @@
 
   export default {
     name: 'NnList',
-    data() {
-      return {
-        msg: 'NnList',
-        selected: '',
-        selectTrue: false,
-        openedList: false
-      }
-    },
     props: {
       items: {
         type: Array,
@@ -32,17 +21,6 @@
     },
     components: {
       NnListItem
-    },
-    watch: {
-      selectTrue() {},
-      openedList() {}
-    },
-    methods: {
-      selectedItem(_item, _t) {
-        console.log(_t)
-        this.openedList = true
-        this.selected = _item
-      }
     }
   }
 </script>

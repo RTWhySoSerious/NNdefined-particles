@@ -1,33 +1,20 @@
 <template>
   <div id="app">
     <nn-navbar/>
-    <img src="./assets/logo.png">
-    <router-view/>
+    <!-- <img src="./assets/logo.png">
+    <router-view/> -->
   </div>
 </template>
 
 <script>
-  import NnNavbar from './components/layout/NnNavbar'
+  import NnNavbar from './components/layout/NnNavbar/NnNavbar'
 
   export default {
     name: 'app',
-    data() {
-      return {
-
-      }
-    },
-    components: {
-      NnNavbar
-    }
+    components: { NnNavbar }
   }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<style lang="scss">
+  @import './assets/scss/main-styles.scss';
 </style>

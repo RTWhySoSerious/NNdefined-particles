@@ -1,15 +1,10 @@
 <template>
   <div>
-
-
-
-
-
     <li 
       v-if="item.parent"
       class="nn-list-item"
       @click="openSubMenu(item)"
-      :class="parseOpened"
+      :class="isOpened"
     >
       <span class="nn-list-item__text">
         {{ item.text }}
@@ -20,102 +15,85 @@
       <li 
         class="nn-list-sub-item" 
         v-for="(subItem, key) in item.subItems"
+        :key="key"
         :style="parseHeight"
-        @click="select(subItem)"
-        :class="{'selected' : subItem === selected && item === selectedParent}"
+        @click="selectChild(subItem)"
+        :class="{'selected' : subItem === selected && subItem.parentId === currentItem.parentId}"
       >
         <span class="nn-list-sub-item__text">
           {{ subItem.text }}
         </span>
       </li>
     </li>
-
-
-
     <li 
       v-if="!item.parent"
       class="nn-list-item"
-      @click="selectOne(item)"
-      :class="{'selected' : item === selected && selectedOne}"
+      @click="selectParent(item)"
+      :class="{'selected' : item === selected && item.id === currentItem.id}"
     >
       <span class="nn-list-item__text">
         {{ item.text }}
       </span>
     </li>
-
-
-
-
   </div>
 </template>
 
 <script>
+  import { mapActions, mapGetters, mapMutations } from 'vuex'
+
   export default {
-    name: 'NnList',
+    name: 'NnListItem',
     data() {
       return {
-        msg: 'NnList',
         selected: '',
-        showSubItem: false,
-        selectedParent: '',
-        selectedOne: false
+        showSubItem: false
       }
     },
     props: {
       item: {
         type: Object
-      },
-      selectItem: {
-        type: Function
       }
+    },
+    mounted() {
+      this.fetchCurrentItem()
     },
     watch: {
       showSubItem() {}
     },
     computed: {
+      ...mapGetters({
+        currentItem: 'getCurrentItem'
+      }),
       parseHeight() {
         return this.showSubItem ? 'height:38px!important;' : ''
       },
-      parseOpened() {
+      isOpened() {
         return this.showSubItem ? 'opened' : 'closed'
       }
     },
     methods: {
-      select(_item) {
+      ...mapActions({
+        fetchCurrentItem: 'handleSelectItem'
+      }),
+      ...mapMutations({
+        setItem: 'SET_CURRENT_ITEM'
+      }),
+      selectParent(_item) {
         this.selected = _item
-        this.selectedParent = this.item
-        this.$emit('selectItem', _item)
+        this.setItem({ _item })
       },
-      selectOne(_item) {
-        this.selected = ''
-        this.selectedOne = !this.selectedOne
-        this.selected = _item
-        this.$emit('selectItem', _item)
-      },
-      openSubMenu(_item) {
+      openSubMenu() {
         this.showSubItem = !this.showSubItem
-        this.$emit('selectItem', _item, this.showSubItem)
+      },
+      selectChild(_item) {
+        this.selected = _item
+        this.setItem({ _item })
       }
     }
   }
 </script>
 
 <style scoped lang="scss">
-  .openedSubMenu {
-    display: flex!important;
-    transition: all .2s ease-in-out; 
-  }
-  .opened {
-    border-right: 1px solid rgb(249, 99, 50)!important;
-    background: #f9f9f9;
-    color: rgb(249, 99, 50);
-    transition: all .2s ease-in-out;
-  }
-  .closed {
-    background: #fff;
-    transition: all .2s ease-in-out;
-    // background: red;
-  }
   .nn-list-item {
     padding: 0;
     position: relative;
@@ -132,8 +110,9 @@
     border-right: 1px solid #fff;
     transition: all .2s ease-in-out;
     &:hover {
-      background: #f9f9f9;
-      // border-right: 1px solid rgb(249, 99, 50);
+      color: rgb(249, 99, 50);
+      border-right: 1px solid rgb(249, 99, 50);
+      transition: all .2s ease-in-out;
     }
     &__text {
       width: 100%;
@@ -163,11 +142,10 @@
     display: flex;
     align-items: center;
     border-right: 1px solid transparent;
-    border-bottom: 1px solid transparent;
     transition: all .2s ease-in-out;
     &:hover {
-      background: #f9f9f9;
-      border-right: 1px solid rgb(249, 99, 50);
+      color: rgb(249, 99, 50);
+      border-right: 1px solid #f2f2f2;
     }
     &__text {
       width: 100%;
@@ -182,10 +160,20 @@
       right: 10px;
     }
   }
-  .selected {
-    // color: rgb(249, 99, 50);
+  // Modifiers
+  .opened {
     border-right: 1px solid rgb(249, 99, 50)!important;
-    // background: #f9f9f9;
+    background: #f9f9f9;
+    color: rgb(249, 99, 50);
+    transition: all .2s ease-in-out;
+  }
+  .closed {
+    background: #fff;
+    transition: all .2s ease-in-out;
+  }
+  .selected {
+    color: rgb(249, 99, 50);
+    border-right: 1px solid rgb(249, 99, 50)!important;
     z-index: 2;
     transition: all .2s ease-in-out;
   }
